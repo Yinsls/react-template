@@ -1,0 +1,10 @@
+$tBlue: blue;
+
+.box {
+  background: red;
+  .inner {
+    // background: $tBlue;
+    background: $commonBlue;
+    width: 100px;
+  }
+}

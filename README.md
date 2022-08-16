@@ -1,3 +1,15 @@
+# 创建 react 项目模版
+
+- react18
+- typescript
+- ant design4.x
+- webpack5
+- axios
+- redux
+- sass
+- craco
+- eslint + pritter
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
