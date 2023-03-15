@@ -1,5 +1,11 @@
-import React from 'react';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <div>home内容</div>
+      <Outlet />
+    </div>
+  )
 }
