@@ -1,23 +1,18 @@
-import Request, { RequestConfig } from './axios';
-import { AxiosResponse } from 'axios';
+import Request, { RequestConfig } from './axios'
+import { AxiosResponse } from 'axios'
 
 export interface YResponse<T> {
-  code: number;
-  msg: string;
-  data: T;
-  rows?: T;
-  total?: number;
+  code: number
+  msg: string
+  data: T
 }
 
 // 重写返回类型
 interface YRequestConfig<T, R> extends RequestConfig<YResponse<R>> {
-  data?: T;
+  data?: T
 }
 
 const request = new Request({
-  // baseURL: process.env.NODE_ENV === 'development' ? '/api/manage' : 'http://www.xianclick.cn/manage', // 生产环境
-  // baseURL: process.env.NODE_ENV === 'development' ? '/api/manage' : 'http://www.maidou.com/manage', // 测试环境
-
   baseURL: '',
   timeout: 1000 * 10,
   interceptors: {
@@ -27,16 +22,15 @@ const request = new Request({
     responseInterceptors: (result: AxiosResponse) => {
       // 登陆状态已过期
       if (result.data && result.data.code === 401) {
-        // http://localhost:3000/login
-        const { protocol, host } = window.location;
-        const url = `${protocol}//${host}/login`;
-        window.location.replace(url);
+        const { protocol, host } = window.location
+        const url = `${protocol}//${host}/login`
+        window.location.replace(url)
       }
 
-      return result;
+      return result
     },
   },
-});
+})
 
 /**
  * @description: 函数的描述
@@ -46,19 +40,19 @@ const request = new Request({
  * @returns {Promise}
  */
 const yRequest = <D = any, T = any>(config: YRequestConfig<D, T>) => {
-  const { method = 'GET' } = config;
+  const { method = 'GET' } = config
   if (method === 'get' || method === 'GET') {
-    config.params = config.data;
+    config.params = config.data
   }
-  return request.request<YResponse<T>>(config);
-};
+  return request.request<YResponse<T>>(config)
+}
 // 取消请求
 export const cancelRequest = (url: string | string[]) => {
-  return request.cancelRequest(url);
-};
+  return request.cancelRequest(url)
+}
 // 取消全部请求
 export const cancelAllRequest = () => {
-  return request.cancelAllRequest();
-};
+  return request.cancelAllRequest()
+}
 
-export default yRequest;
+export default yRequest
